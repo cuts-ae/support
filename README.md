@@ -1,147 +1,181 @@
-# Support Portal
+# Support Agent Portal
 
-Professional support ticket management and live chat system built with Next.js 15.
+A real-time support agent portal for managing customer chat requests from restaurants using the Cuts.ae platform.
 
 ## Features
 
-- Real-time ticket management
-- Live chat interface with typing indicators
-- Read receipts for messages
-- File attachment support
-- Status management (Open, In Progress, Resolved, Closed)
-- Priority levels (Low, Medium, High, Urgent)
-- Clean, minimal Next.js/Vercel-inspired design
-- Responsive layout for mobile and desktop
+- **Live Chat Queue**: View incoming chat requests from restaurants in real-time
+- **Accept & Manage Chats**: Accept pending chats and handle multiple conversations simultaneously
+- **Real-time Communication**: Built on Socket.io for instant message delivery
+- **Typing Indicators**: See when restaurants are typing responses
+- **Photo Viewing**: View photos shared by restaurants in full-screen mode
+- **Chat History**: Access complete conversation history for each chat
+- **Active Chats Dashboard**: Manage all your active conversations in one place
+- **Close/Resolve Chats**: Mark conversations as resolved when issues are addressed
+- **Professional UI**: Clean, responsive design matching the admin portal aesthetics
 
 ## Tech Stack
 
-- Next.js 15 with App Router
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- shadcn/ui components
-- date-fns for date formatting
+- **Next.js 15**: React framework with App Router
+- **React 19**: Latest React features including Server Components
+- **Socket.io Client**: Real-time bidirectional event-based communication
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first CSS framework
+- **Radix UI**: Accessible component primitives
+- **date-fns**: Modern JavaScript date utility library
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+ installed
-- API server running on port 45000
+- Backend Socket.io server running on port 45000 (or configured WS_URL)
 
 ### Installation
 
 1. Install dependencies:
-
 ```bash
 npm install
 ```
 
-2. Set up environment variables (optional):
-
-Create a `.env.local` file:
-
+2. Set environment variables (create `.env.local`):
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:45000
+NEXT_PUBLIC_WS_URL=http://localhost:45000
 ```
 
-### Development
-
-Run the development server:
-
+3. Run the development server:
 ```bash
 npm run dev
 ```
 
-The application will be available at [http://localhost:45004](http://localhost:45004)
+The portal will be available at `http://localhost:45003`
 
-### Build
-
-Build for production:
+### Production Build
 
 ```bash
 npm run build
-```
-
-### Start Production Server
-
-```bash
 npm start
 ```
+
+## Usage
+
+### Login
+
+Use support agent credentials to log in:
+- Email: agent@cuts.ae
+- Password: password123 (demo)
+
+### Managing Chats
+
+1. **Queue Tab**: View pending chat requests waiting for an agent
+2. **Accept Chat**: Click "Accept" on any pending chat to claim it
+3. **Active Tab**: Switch to active chats to see all your ongoing conversations
+4. **Chat Interface**: Select a chat to view messages and respond
+5. **Close Chat**: Click "Close Chat" when the issue is resolved
+
+### Real-time Features
+
+- New chat requests appear automatically in the queue
+- Messages are delivered instantly
+- Typing indicators show when the restaurant is typing
+- Unread message counts update in real-time
+
+## Socket.io Events
+
+### Emitted Events (Agent → Server)
+
+- `support:join` - Agent connects and joins support room
+- `support:accept_chat` - Accept a pending chat request
+- `support:send_message` - Send a message to restaurant
+- `support:typing` - Send typing indicator
+- `support:close_chat` - Close/resolve a chat
+- `support:load_chat` - Load chat history
+
+### Received Events (Server → Agent)
+
+- `chat:new_request` - New chat request from restaurant
+- `chat:accepted` - Chat was accepted (by this or another agent)
+- `chat:message` - New message in a chat
+- `chat:typing` - Restaurant is typing
+- `chat:closed` - Chat was closed
+- `chat:queue_update` - Queue updated
+- `chat:active_update` - Active chats updated
+- `chat:history` - Chat message history
 
 ## Project Structure
 
 ```
 support/
 ├── app/
-│   ├── dashboard/
-│   │   ├── chat/
-│   │   │   └── [ticketId]/
-│   │   │       └── page.tsx       # Chat interface
-│   │   ├── tickets/
-│   │   │   └── page.tsx           # Tickets list
-│   │   ├── layout.tsx             # Dashboard layout
-│   │   └── page.tsx
 │   ├── login/
-│   │   └── page.tsx               # Login page
-│   ├── layout.tsx                 # Root layout
-│   ├── page.tsx
-│   └── globals.css
+│   │   └── page.tsx          # Login page
+│   ├── layout.tsx            # Root layout
+│   ├── page.tsx              # Main support dashboard
+│   └── globals.css           # Global styles
 ├── components/
-│   └── ui/                        # shadcn/ui components
+│   ├── ui/                   # Shadcn UI components
+│   ├── ChatQueue.tsx         # Pending chats queue
+│   ├── ActiveChatsList.tsx   # Active chats list
+│   └── ChatInterface.tsx     # Chat conversation UI
+├── hooks/
+│   └── useSocket.ts          # Socket.io hook
 ├── lib/
-│   ├── api.ts                     # API configuration
-│   ├── types.ts                   # TypeScript types
-│   └── utils.ts                   # Utilities
-├── package.json
-├── tsconfig.json
-└── next.config.ts
+│   ├── api.ts                # API endpoints configuration
+│   └── utils.ts              # Utility functions
+└── package.json
 ```
 
 ## API Integration
 
-The application integrates with the backend API at port 45000. Key endpoints:
+The portal expects the following backend endpoints:
 
-- `POST /api/v1/auth/login` - Authentication
-- `GET /api/v1/support/tickets` - List tickets
-- `GET /api/v1/support/tickets/:id` - Ticket details
-- `GET /api/v1/support/tickets/:id/messages` - Get messages
-- `POST /api/v1/support/tickets/:id/messages` - Send message
-- `PATCH /api/v1/support/tickets/:id/status` - Update ticket status
+- `POST /api/v1/support/auth/login` - Agent authentication
+- `GET /api/v1/support/chat/queue` - Get pending chats
+- `GET /api/v1/support/chat/active` - Get active chats
+- `GET /api/v1/support/chat/:id/history` - Get chat history
+- `POST /api/v1/support/chat/:id/accept` - Accept a chat
+- `POST /api/v1/support/chat/:id/message` - Send message
+- `POST /api/v1/support/chat/:id/close` - Close chat
 
-## Features Details
+## Development
 
-### Real-time Updates
+### Running in Development Mode
 
-- Tickets list auto-refreshes every 5 seconds
-- Messages auto-refresh every 2 seconds
-- Typing indicators with 1-second timeout
+```bash
+npm run dev
+```
 
-### Chat Interface
+The app uses Turbopack for faster builds and hot module replacement.
 
-- Support for text messages
-- File attachments (upload and download)
-- Read receipts (single check = sent, double check = read)
-- Typing indicators
-- Smooth scrolling to latest messages
+### Type Checking
 
-### Ticket Management
+```bash
+npx tsc --noEmit
+```
 
-- Filter by status (All, Open, In Progress, Resolved)
-- Search by title, customer name, or email
-- View ticket statistics
-- Update ticket status
-- Priority badges
+### Linting
 
-## Demo Credentials
+```bash
+npm run lint
+```
 
-For development and testing:
+## Deployment
 
-- Email: `support@example.com`
-- Password: `password123`
+The support portal can be deployed to any Next.js hosting platform:
 
-Note: These credentials are for demo purposes only.
+- **Vercel**: Automatic deployments with Git integration
+- **Railway**: Deploy with Docker or Nixpacks
+- **AWS/GCP/Azure**: Deploy using containerization
+
+Make sure to set the correct environment variables for production:
+- `NEXT_PUBLIC_API_URL` - Production backend API URL
+- `NEXT_PUBLIC_WS_URL` - Production WebSocket server URL
+
+## Contributing
+
+This is a proprietary application. Contact the development team for contribution guidelines.
 
 ## License
 
-Private - All rights reserved
+Proprietary - All rights reserved

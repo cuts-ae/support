@@ -1,0 +1,63 @@
+{
+  "loginPage": {
+    "title": "Support Portal - Cuts.ae",
+    "elements": {
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "logo": true,
+      "demoCredentials": true
+    },
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    ]
+  },
+  "authentication": {
+    "redirected": false,
+    "currentUrl": "http://localhost:45004/login",
+    "tokenStored": false,
+    "agentStored": false
+  },
+  "mainPortal": {},
+  "socketConnection": {
+    "statusText": "Disconnected",
+    "hasIndicator": false,
+    "indicatorColor": [],
+    "logs": []
+  },
+  "chatQueue": {
+    "tabFound": false,
+    "itemCount": 0,
+    "isEmpty": false,
+    "content": "Support Portal LoginSign in to access the support agent dashboardForbiddenEmailPasswordSign InDemo credentials: agent@cuts.ae / password123(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)\\\",[\\\"/_next/static/chunks/node_modules_next_dist_8db7fb1f._.js\\\",\\\"/_next/static/chunks/app_layout_tsx_0a548d63._.js\\\"],\\\"SegmentViewNode\\\"]\\n7:\\\"$Sreact.fragment\\\"\\n18:I[\\\"[pro"
+  },
+  "activeChats": {
+    "tabFound": false,
+    "isEmpty": false,
+    "content": "Support Portal LoginSign in to access the support agent dashboardForbiddenEmailPasswordSign InDemo credentials: agent@cuts.ae / password123(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"[project]/node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js [app-client] (ecmascript)\\\",[\\\"/_next/static/chunks/node_modules_next_dist_8db7fb1f._.js\\\",\\\"/_next/static/chunks/app_layout_tsx_0a548d63._.js\\\"],\\\"SegmentViewNode\\\"]\\n7:\\\"$Sreact.fragment\\\"\\n18:I[\\\"[pro"
+  },
+  "messaging": {},
+  "buttons": {
+    "all": [
+      {
+        "index": 0,
+        "text": "Sign In",
+        "disabled": false,
+        "type": "submit",
+        "className": "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98] bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm h-10 px-4 py-2 w-full",
+        "visible": true
+      }
+    ],
+    "count": 1,
+    "enabled": 1
+  },
+  "forms": {},
+  "errors": [
+    "Main portal test failed: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:has-text(\"Logout\")' is not a valid selector."
+  ],
+  "network": {
+    "requests": 0,
+    "responses": 0,
+    "details": []
+  }
+}

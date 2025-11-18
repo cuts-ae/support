@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+export default {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,40 +10,46 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--color-background) / <alpha-value>)",
-        foreground: "hsl(var(--color-foreground) / <alpha-value>)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         card: {
-          DEFAULT: "hsl(var(--color-card) / <alpha-value>)",
-          foreground: "hsl(var(--color-card-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         popover: {
-          DEFAULT: "hsl(var(--color-popover) / <alpha-value>)",
-          foreground: "hsl(var(--color-popover-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         primary: {
-          DEFAULT: "hsl(var(--color-primary) / <alpha-value>)",
-          foreground: "hsl(var(--color-primary-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--color-secondary) / <alpha-value>)",
-          foreground: "hsl(var(--color-secondary-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         muted: {
-          DEFAULT: "hsl(var(--color-muted) / <alpha-value>)",
-          foreground: "hsl(var(--color-muted-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--color-accent) / <alpha-value>)",
-          foreground: "hsl(var(--color-accent-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--color-destructive) / <alpha-value>)",
-          foreground:
-            "hsl(var(--color-destructive-foreground) / <alpha-value>)",
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        border: "hsl(var(--color-border) / <alpha-value>)",
-        input: "hsl(var(--color-input) / <alpha-value>)",
-        ring: "hsl(var(--color-ring) / <alpha-value>)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -52,5 +59,4 @@ const config: Config = {
     },
   },
   plugins: [],
-};
-export default config;
+} satisfies Config;

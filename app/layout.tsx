@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Support Portal - Real-time Customer Support",
-  description: "Professional support ticket management and live chat system",
+  title: "Support Portal - Cuts.ae",
+  description: "Support agent portal for managing customer chats",
 };
 
 export default function RootLayout({
