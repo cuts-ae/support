@@ -89,8 +89,8 @@ export default function SupportPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.03),rgba(255,255,255,0))]">
-      <div className="absolute inset-0 opacity-[0.015] bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0)_1px,transparent_0)] bg-[size:24px_24px] pointer-events-none" />
+    <div className="min-h-screen bg-white">
+      <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0)_1px,transparent_0)] bg-[size:40px_40px] pointer-events-none" />
 
       <div className="relative border-b border-border/40 bg-background/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-[1800px] mx-auto px-8 py-5">
