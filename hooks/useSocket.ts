@@ -66,9 +66,48 @@ export function useSocket(agentId: string): UseSocketReturn {
 
     socketRef.current = socket;
 
+    const fetchActiveSessions = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:45000";
+        const response = await fetch(`${apiUrl}/api/v1/chat/sessions`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const sessions = await response.json();
+          const pending = sessions.filter((s: any) => s.status === "waiting");
+          const active = sessions.filter((s: any) => s.status === "active" && s.agent_id === agentId);
+
+          setChatQueue(pending.map((s: any) => ({
+            id: s.id,
+            restaurant_id: s.restaurant_id,
+            restaurant_name: s.subject,
+            status: s.status,
+            created_at: s.created_at,
+          })));
+
+          setActiveChats(active.map((s: any) => ({
+            id: s.id,
+            restaurant_id: s.restaurant_id,
+            restaurant_name: s.subject,
+            status: s.status,
+            created_at: s.created_at,
+            accepted_by: s.agent_id,
+          })));
+        }
+      } catch (error) {
+        console.error("Error fetching active sessions:", error);
+      }
+    };
+
+    fetchActiveSessions();
+
     socket.on("connect", () => {
       console.log("Support agent connected to socket");
       setIsConnected(true);
+      fetchActiveSessions();
     });
 
     socket.on("disconnect", () => {
