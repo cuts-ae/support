@@ -9,7 +9,7 @@ import {
   Loader2,
   Store,
   CheckCircle2,
-} from "lucide-react";
+} from "@/components/icons";
 import { ChatRequest, ChatMessage } from "@/hooks/useSocket";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";

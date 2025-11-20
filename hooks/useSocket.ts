@@ -68,7 +68,8 @@ export function useSocket(agentId: string): UseSocketReturn {
 
     const fetchActiveSessions = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:45000";
+        const apiUrl =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:45000";
         const response = await fetch(`${apiUrl}/api/v1/chat/sessions`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,26 +77,37 @@ export function useSocket(agentId: string): UseSocketReturn {
         });
 
         if (response.ok) {
-          const sessions = await response.json();
-          const pending = sessions.filter((s: any) => s.status === "waiting");
-          const active = sessions.filter((s: any) => s.status === "active" && s.agent_id === agentId);
+          const data = await response.json();
+          const sessionsArray = Array.isArray(data)
+            ? data
+            : data.data || data.sessions || [];
+          const pending = sessionsArray.filter(
+            (s: any) => s.status === "waiting",
+          );
+          const active = sessionsArray.filter(
+            (s: any) => s.status === "active" && s.agent_id === agentId,
+          );
 
-          setChatQueue(pending.map((s: any) => ({
-            id: s.id,
-            restaurant_id: s.restaurant_id,
-            restaurant_name: s.subject,
-            status: s.status,
-            created_at: s.created_at,
-          })));
+          setChatQueue(
+            pending.map((s: any) => ({
+              id: s.id,
+              restaurant_id: s.restaurant_id,
+              restaurant_name: s.subject,
+              status: s.status,
+              created_at: s.created_at,
+            })),
+          );
 
-          setActiveChats(active.map((s: any) => ({
-            id: s.id,
-            restaurant_id: s.restaurant_id,
-            restaurant_name: s.subject,
-            status: s.status,
-            created_at: s.created_at,
-            accepted_by: s.agent_id,
-          })));
+          setActiveChats(
+            active.map((s: any) => ({
+              id: s.id,
+              restaurant_id: s.restaurant_id,
+              restaurant_name: s.subject,
+              status: s.status,
+              created_at: s.created_at,
+              accepted_by: s.agent_id,
+            })),
+          );
         }
       } catch (error) {
         console.error("Error fetching active sessions:", error);
@@ -122,23 +134,29 @@ export function useSocket(agentId: string): UseSocketReturn {
     socket.on("session_status_changed", (data: any) => {
       console.log("Session status changed:", data);
       if (data.status === "active") {
-        setChatQueue((prev) => prev.filter((chat) => chat.id !== data.session_id));
+        setChatQueue((prev) =>
+          prev.filter((chat) => chat.id !== data.session_id),
+        );
       }
     });
 
     socket.on("new_message", ({ message }: any) => {
       console.log("New message received:", message);
       if (currentChat && message.session_id === currentChat.id) {
-        setMessages((prev) => [...prev, {
-          id: message.id,
-          chat_id: message.session_id,
-          sender_type: message.sender_role === "support" ? "support" : "restaurant",
-          sender_id: message.sender_id,
-          message: message.content,
-          photo_url: undefined,
-          created_at: message.created_at,
-          read: false,
-        }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: message.id,
+            chat_id: message.session_id,
+            sender_type:
+              message.sender_role === "support" ? "support" : "restaurant",
+            sender_id: message.sender_id,
+            message: message.content,
+            photo_url: undefined,
+            created_at: message.created_at,
+            read: false,
+          },
+        ]);
       }
     });
 
@@ -157,14 +175,17 @@ export function useSocket(agentId: string): UseSocketReturn {
     socket.on("chat_accepted", ({ session, agent_id }: any) => {
       console.log("Chat accepted:", session, "by", agent_id);
       if (agent_id === agentId) {
-        setActiveChats((prev) => [{
-          id: session.id,
-          restaurant_id: session.restaurant_id,
-          restaurant_name: session.subject,
-          status: "active",
-          created_at: session.created_at,
-          accepted_by: agent_id,
-        }, ...prev]);
+        setActiveChats((prev) => [
+          {
+            id: session.id,
+            restaurant_id: session.restaurant_id,
+            restaurant_name: session.subject,
+            status: "active",
+            created_at: session.created_at,
+            accepted_by: agent_id,
+          },
+          ...prev,
+        ]);
       }
     });
 
@@ -206,7 +227,9 @@ export function useSocket(agentId: string): UseSocketReturn {
 
       return () => {
         if (socketRef.current) {
-          socketRef.current.emit("leave_session", { session_id: currentChat.id });
+          socketRef.current.emit("leave_session", {
+            session_id: currentChat.id,
+          });
           socketRef.current.off("session_joined", handleSessionJoined);
         }
       };

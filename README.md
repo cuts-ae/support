@@ -64,7 +64,7 @@ npm start
 
 Use support agent credentials to log in:
 - Email: agent@cuts.ae
-- Password: password123 (demo)
+- Password: TabsTriggerIsnt2026*$ (demo)
 
 ### Managing Chats
 

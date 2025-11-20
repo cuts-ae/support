@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { Clock, Store } from "lucide-react";
+import { Clock, Store } from "@/components/icons";
 import { ChatRequest } from "@/hooks/useSocket";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";

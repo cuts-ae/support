@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { MessageSquare, Lock, Mail, AlertCircle } from "lucide-react";
+import { MessageSquare, Lock, Mail, AlertCircle } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -119,10 +119,10 @@ export default function LoginPage() {
               Demo Credentials:
             </p>
             <p className="text-xs text-muted-foreground text-center">
-              agent@cuts.ae / password123
+              agent@cuts.ae / TabsTriggerIsnt2026*$
             </p>
             <p className="text-xs text-muted-foreground text-center">
-              support@cuts.ae / password123
+              support@cuts.ae / TabsTriggerIsnt2026*$
             </p>
           </div>
         </CardContent>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User, LogOut, MessageSquare, Clock, CheckCircle } from "lucide-react";
+import { User, LogOut, MessageSquare, Clock, CheckCircle } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -90,22 +90,23 @@ export default function SupportPortal() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0)_1px,transparent_0)] bg-[size:40px_40px] pointer-events-none" />
+      {/* Subtle grid pattern background */}
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] pointer-events-none" />
 
-      <div className="relative border-b border-border/40 bg-background/95 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-[1800px] mx-auto px-8 py-5">
+      <div className="relative border-b border-gray-200 bg-white/80 backdrop-blur-xl sticky top-0 z-50">
+        <div className="max-w-[1400px] mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-primary-foreground" />
-              </div>
+              <img src="/logo.png" alt="Cuts.ae" className="h-8 w-8" />
               <div>
-                <h1 className="text-2xl font-bold tracking-tight">
+                <h1 className="text-xl font-semibold tracking-tight text-gray-900">
                   Support Portal
                 </h1>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className={`w-2 h-2 rounded-full ${"${"}isConnected ? "bg-green-500" : "bg-red-500"${"}"}`} />
-                  <span className="text-muted-foreground">
+                <div className="flex items-center gap-2 text-xs mt-0.5">
+                  <div
+                    className={`w-1.5 h-1.5 rounded-full ${"${"}isConnected ? "bg-green-500" : "bg-gray-400"${"}"}`}
+                  />
+                  <span className="text-gray-500">
                     {isConnected ? "Connected" : "Disconnected"}
                   </span>
                 </div>
@@ -113,15 +114,15 @@ export default function SupportPortal() {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border/50">
-                <User className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm font-medium">{agentEmail}</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-50 border border-gray-200 text-sm text-gray-700">
+                <User className="w-3.5 h-3.5 text-gray-500" />
+                <span>{agentEmail}</span>
               </div>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
                 onClick={handleLogout}
-                className="gap-2 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/50 transition-all"
+                className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
               >
                 <LogOut className="w-4 h-4" />
                 Logout
@@ -142,9 +143,7 @@ export default function SupportPortal() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{chatQueue.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Waiting for agent
-              </p>
+              <p className="text-xs text-muted-foreground">Waiting for agent</p>
             </CardContent>
           </Card>
 
@@ -165,16 +164,12 @@ export default function SupportPortal() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Today
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total Today</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">0</div>
-              <p className="text-xs text-muted-foreground">
-                Resolved chats
-              </p>
+              <p className="text-xs text-muted-foreground">Resolved chats</p>
             </CardContent>
           </Card>
         </div>

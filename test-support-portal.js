@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
 
 const SUPPORT_URL = 'http://localhost:45004';
 const TEST_EMAIL = 'support@cuts.ae';
-const TEST_PASSWORD = 'password123';
+const TEST_PASSWORD = 'TabsTriggerIsnt2026*$';
 
 const results = {
   loginPage: {},
