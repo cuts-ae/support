@@ -66,6 +66,16 @@
     color: hsl(var(--foreground));
     font-family: var(--font-geist-sans), system-ui, sans-serif;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    @apply tracking-tighter;
+  }
   code,
   pre {
     font-family: var(--font-geist-mono), monospace;
